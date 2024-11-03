@@ -1,0 +1,192 @@
+/* Home */
+
+.challenges{
+  padding-left: 20px;
+}
+
+/* live online sessions style */
+.card-hover {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* contact */
+.map-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+.map-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 80%;
+  width: 100%;
+  position: absolute;
+}
+
+.card1 {
+  border-bottom-left-radius: 20px; /* Adjust the radius as needed */
+}
+
+/* About style */
+.bullet-list{
+  font-size: 17px;
+}
+.bullet-list p{
+  padding-bottom: 3px;
+}
+.sub-title strong{
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 700;
+  padding-bottom: 5px;
+}
+.about-banner{
+    background-image: url('../../public/images/meditation.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    height: 35vh;
+  
+}
+@media (max-width: 968px) {
+  .about-banner{
+    height: 50vh;
+  }
+}
+
+@media (max-width: 700px) {
+  .about-banner{
+    height: 60vh;
+  }
+}
+
+/* Liveonline session css */
+/* CSS */
+.button-33 {
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-33:hover {
+  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+/* books style */
+
+/* CSS */
+.button-37 {
+  background-color: green;
+  border: 1px solid #13aa52;
+  border-radius: 14px;
+  box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+  outline: 0;
+  padding: 10px 25px;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-37:hover {
+  box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+  transform: translateY(-2px);
+  background-color: rgb(243, 46, 138);
+}
+
+@media (min-width: 768px) {
+  .button-37 {
+    padding: 10px 30px;
+  }
+}
+
+/* blogs style */
+
+.btn11 {
+  border-radius: 6px;
+  border: none;      
+  color: white;      
+  padding: 16px 32px;      
+  text-align: center;      
+  display: inline-block;      
+  font-size: 16px;      
+  margin: 4px 2px;      
+  -webkit-transition-duration: 0.4s; 
+  /* Safari */      
+  transition-duration: 0.4s;      
+  cursor: pointer;      
+  text-decoration: none;      
+  font-size: 1.2rem;
+  font-weight: 500;
+  background-color: #f3e8ff;
+  color: #3c096c;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bttt button:hover {      
+  background-color: #00ba51;      
+  color: white; 
+}
+
+.catig{
+  background-color: #c0a1e0;
+  padding: 8px;
+}
+.shadow{
+  cursor: pointer;
+  width: 94%;
+}
+
+.shadow {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.shadow:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.topic-list{
+  background-color: #e7dbf4;
+  width: 80%;
+  font-size: 17px;
+  cursor: pointer;
+}
+.topic-list:hover{
+  background-color: #dbc8ef;
+}
+.tags-list{
+  width: 80%;
+  font-size: large;
+  cursor: pointer;
+}
