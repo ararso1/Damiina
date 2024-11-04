@@ -1,11 +1,11 @@
 import React from 'react';
-import { Navbar, Nav, Button, Container } from 'react-bootstrap';
+import { Navbar, Nav, Button, Container, Image } from 'react-bootstrap';
 
 const NavigationBar = () => {
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container className='mynav'>
-        <Navbar.Brand href="/" className="fw-bold">Julie Arnaud</Navbar.Brand>
+        <Navbar.Brand href="/" className="fw-bold"><Image src={`${process.env.PUBLIC_URL}/images/logo1.png`} style={{height:'7vh'}} alt='Logo'></Image></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

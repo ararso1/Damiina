@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { FaLinkedin, FaTwitter, FaFacebook, FaMapMarkerAlt, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaLinkedin, FaTwitter, FaFacebook, FaMapMarkerAlt, FaEnvelope, FaPhone, FaInstagram, FaTiktok,FaYoutube } from 'react-icons/fa';
 import './all.css'
 
 function Contact() {
   return (
     <>
-    <div className="bg-success text-white py-5">
+    <div className="text-white py-5" style={{backgroundColor: '#29AF8E'}}>
       <Container>
         <Row className="mb-5">
           <Col md={6} className="mb-4">
@@ -15,21 +15,27 @@ function Contact() {
               Feel free to contact me for any questions and doubts
             </p>
             <p>
-              Vulputate egestas nullam volutpat diam nisi at venenatis adipiscing massa posuere massa nulla massa id integer.
+              Whether you’re looking to start your journey or need guidance on a specific challenge, don’t hesitate to get in touch. I’m here to provide support and clarity every step of the way.
             </p>
             <p>
-              Cras ullamcorper fermentum arcu in sed fermentum velit nulla scelerisque pharetra tristique lectus justo faucibus purus est purus gravida nibh odio ante.
+            “Growth comes from within; with the right support, you can achieve anything.”
             </p>
             <h5 className="mt-4">Stay in Touch</h5>
             <div className="d-flex align-items-center">
-              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white me-3">
-                <FaLinkedin size={30} />
-              </a>
-              <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="text-white me-3">
-                <FaTwitter size={30} />
-              </a>
-              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="text-white">
+              <a href="https://www.facebook.com/profile.php/?id=61552282363545" target="_blank" rel="noopener noreferrer" className="text-white me-3">
                 <FaFacebook size={30} />
+              </a>
+              <a href="" target="_blank" rel="noopener noreferrer" className="text-white me-3">
+                <FaInstagram size={30} />
+              </a>
+              <a href="https://www.tiktok.com/@ibsadamiina" target="_blank" rel="noopener noreferrer" className="text-white me-3">
+                <FaTiktok size={30} />
+              </a>
+              <a href="https://www.youtube.com/@ibsadamiinaa" target="_blank" rel="noopener noreferrer" className="text-white me-3">
+                <FaYoutube size={30} />
+              </a>
+              <a href="" target="_blank" rel="noopener noreferrer" className="text-white">
+                <FaTwitter size={30} />
               </a>
             </div>
           </Col>
@@ -37,7 +43,7 @@ function Contact() {
           {/* Contact Form Section */}
           <Col md={6}>
             <h4>I would love to hear from you</h4>
-            <p>Vitae nibh lacinia egestas scelerisque in purus cursus sed.</p>
+            <p>Connect with me to share your thoughts, ask questions, or explore new opportunities.</p>
             <Form>
               <Row>
                 <Col md={6}>
@@ -84,7 +90,7 @@ function Contact() {
                         </Col>
                         <Col md={10}>
                             <h5 className="text-uppercase mt-2">Find Me</h5>
-                            <p>123 Fifth Avenue, New York, NY 12004. United States.</p>
+                            <p>Addis Ababa, Ethiopia.</p>
                     </Col>
                 </Row>
           </Col>
@@ -95,7 +101,7 @@ function Contact() {
                     </Col>
                     <Col md={10}>
                         <h5 className="text-uppercase mt-2">Email Me</h5>
-                        <p>mail@example.com</p>
+                        <p>ibsa@damiina.com</p>
                     </Col>
                 </Row>
           </Col>
@@ -106,7 +112,7 @@ function Contact() {
                     </Col>
                     <Col md={10}>
                         <h5 className="text-uppercase mt-2">Call Me</h5>
-                        <p>+01 - 123 456 78 90</p>
+                        <p>+251 - 923 456 78 90</p>
                     </Col>
                 </Row>
           </Col>

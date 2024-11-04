@@ -59,8 +59,8 @@ function Blogs() {
               imgSrc: `${process.env.PUBLIC_URL}/images/blog1.jpg`,
               title: 'Markdown Language Sample Blog',
               description: 'Markdown is a lightweight markup language with plain-text-formatting syntax...',
-              author: 'Jane Smith',
-              date: 'May 15, 2021',
+              author: 'Ibsaa Damiina',
+              date: 'May 15, 2024',
               readTime: '2 min',
               category: 'Advertising'
             },
@@ -68,8 +68,8 @@ function Blogs() {
               imgSrc: `${process.env.PUBLIC_URL}/images/blog2.jpg`,
               title: 'A Marketer’s Guide to Price Comparison Websites',
               description: 'Lorem markdownum suarum successibus Auram illud...',
-              author: 'Jane Smith',
-              date: 'April 16, 2020',
+              author: 'Ibsaa Damiina',
+              date: 'April 16, 2024',
               readTime: '1 min',
               category: 'Advertising'
             },
@@ -77,8 +77,8 @@ function Blogs() {
               imgSrc: `${process.env.PUBLIC_URL}/images/blog-bg.png`,
               title: 'Markdown Language Sample Blog',
               description: 'Markdown is a lightweight markup language with plain-text-formatting syntax...',
-              author: 'Jane Smith',
-              date: 'May 15, 2021',
+              author: 'Ibsaa Damiina',
+              date: 'May 15, 2024',
               readTime: '2 min',
               category: 'Advertising'
             },
@@ -86,8 +86,8 @@ function Blogs() {
               imgSrc: `${process.env.PUBLIC_URL}/images/blog2.jpg`,
               title: 'A Marketer’s Guide to Price Comparison Websites',
               description: 'Lorem markdownum suarum successibus Auram illud...',
-              author: 'Jane Smith',
-              date: 'April 16, 2020',
+              author: 'Ibsaa Damiina',
+              date: 'April 16, 2024',
               readTime: '1 min',
               category: 'Advertising'
             }

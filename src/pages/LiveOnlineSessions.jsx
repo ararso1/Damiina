@@ -13,7 +13,7 @@ const LiveOnlineSessions = () => {
       </div>
 
       {/* Session List Section */}
-      <Container className="" style={{marginTop: '100px'}}>
+      <Container className="your-seat" style={{marginTop: '100px'}}>
         <h2 className="text-center fw-bold mb-5">Experience the Growth Today!</h2>
 
         <Row className="align-items-center py-5 border-bottom">

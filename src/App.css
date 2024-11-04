@@ -112,18 +112,19 @@ h2{
         width: 50%;
     }
 }
+
 @media (max-width: 580px) {
   .header {
       height: 130vh;
   }
 }
+
 @media (max-width: 330px) {
   .header {
       height: 150vh;
   }
 }
 
-/* CSS button */
 .button-64 {
   align-items: center;
   background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
@@ -172,6 +173,46 @@ h2{
     min-width: 196px;
   }
 }
+
+/* header */
+.header .par {
+  display: flex;
+
+}
+
+.header .par {
+  position: relative;
+  color: #252839;
+  text-transform: uppercase;
+  width: 41.9%;
+  
+  text-transform: uppercase;
+}
+.header .par::before {
+  content: attr(data-text);
+  position: absolute;
+  top:0;
+  left:0;
+  width: 0;
+  height: 100%;
+  color:#01fe87;
+  -webkit-text-stroke: 0vw #383d52;
+  border-right: 2px solid #01fe87;
+  overflow: hidden;
+  animation: animate 6s linear infinite;
+}
+
+@keyframes animate {
+
+
+  0% ,10%,100%{
+      width: 0;
+  }
+  70%,90%{
+      width: 100%;
+  }
+}
+
 
 /* footer style */
 

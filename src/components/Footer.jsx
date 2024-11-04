@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import { FaFacebook, FaInstagram, FaTiktok, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
@@ -18,7 +18,7 @@ const Footer = () => {
         <Row className="text-start">
           {/* Logo and Description */}
           <Col md={3} sm={6} className="mb-4">
-            <h5 className="fw-bold" style={{marginBottom: '30px'}}>Julie Arnaud</h5>
+            <Image src={`${process.env.PUBLIC_URL}/images/logo1.png`} style={{height: '7vh', marginBottom: '30px'}} ></Image>
             <p className="text-muted">
               Working with Ibsaa Damiina has been transformative! His approach is both supportive and empowering, helping you to overcome challenges and empower you to reach new heights.
             </p>
@@ -75,7 +75,7 @@ const Footer = () => {
             <a href="https://www.youtube.com/@ibsadamiinaa" className="text-dark me-3" target="_blank" rel="noopener noreferrer">
               <FaYoutube size={24} />
             </a>
-            <a href="https://www.facebook.com/profile.php/?id=61552282363545" className="text-dark me-3" target="_blank" rel="noopener noreferrer">
+            <a href="" className="text-dark me-3" target="_blank" rel="noopener noreferrer">
               <FaTwitter size={24} />
             </a>
           </Col>

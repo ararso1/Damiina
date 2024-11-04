@@ -190,3 +190,20 @@
   font-size: large;
   cursor: pointer;
 }
+
+
+/* Screen size */
+@media (max-width: 780px) {
+  .about-banner{
+    height: 60vh;
+  }
+  .your-seat{
+    text-align: center;
+  }
+  .your-seat h5{
+    padding-top: 10px;
+  }
+  .your-seat p{
+    padding-bottom: 10px;
+  }
+}
