@@ -69,7 +69,7 @@ const Footer = () => {
             <a href="https://instagram.com" className="text-dark me-3" target="_blank" rel="noopener noreferrer">
               <FaInstagram size={24} />
             </a>
-            <a href="https://www.facebook.com/profile.php/?id=61552282363545" className="text-dark me-3" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.tiktok.com/@ibsadamiina" className="text-dark me-3" target="_blank" rel="noopener noreferrer">
               <FaTiktok size={24} />
             </a>
             <a href="https://www.youtube.com/@ibsadamiinaa" className="text-dark me-3" target="_blank" rel="noopener noreferrer">
