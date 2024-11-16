@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Navbar, Nav, Button, Container, Image } from 'react-bootstrap';
+import ScheduleCallModal from './ScheduleCallModal';
 
 const NavigationBar = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container className='mynav'>
@@ -15,10 +17,11 @@ const NavigationBar = () => {
             <Nav.Link className='nav-link' href="/books">Books</Nav.Link>
             <Nav.Link className='nav-link' href="/blogs">Blogs</Nav.Link>
             <Nav.Link className='nav-link' href="/contact">Contact</Nav.Link>
-            <button className="button-28 ms-3" role="button">Schedule a Call</button>
+            <button className="button-28 ms-3" onClick={() => setShowModal(true)} role="button">Schedule a Call</button>
           </Nav>
         </Navbar.Collapse>
       </Container>
+      <ScheduleCallModal show={showModal} handleClose={() => setShowModal(false)} />
     </Navbar>
   );
 };

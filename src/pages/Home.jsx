@@ -2,11 +2,29 @@
 import React from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { FaTasks, FaHourglassHalf, FaBullseye, FaCalculator } from 'react-icons/fa';
+import CourseRegistration from '../components/CourseRegistration';
 
 const Home = () => {
   return (
     <>
       <Container className="text-center" style={{marginTop: '90px', }}>
+                
+        {/* Registration Section */}
+        <Row className="mt-5 mb-5">
+          <Col md={8} className="mx-auto text-center">
+            <h3 className="mb-3">Register for Our Course</h3>
+            <p className="text" style={{ fontSize: '17px', color: 'brown' }}>
+              Join our comprehensive course designed to help you achieve your goals with expert guidance and practical strategies.
+            </p>
+            <Button
+              variant="success"
+              size="lg"
+              onClick={() => window.location.href = '/course-registration'}
+            >
+              Register Now
+            </Button>
+          </Col>
+        </Row>
         {/* Section Title */}
         <h2 className="mb-4">What Are You Struggling With?</h2>
         <p className="text-muted mb-5" style={{marginLeft: '10%', marginRight:'10%', fontSize: '17px'}}>

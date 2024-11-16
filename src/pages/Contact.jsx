@@ -18,7 +18,7 @@ function Contact() {
               Whether you’re looking to start your journey or need guidance on a specific challenge, don’t hesitate to get in touch. I’m here to provide support and clarity every step of the way.
             </p>
             <p>
-            “Growth comes from within; with the right support, you can achieve anything.”
+              “Growth comes from within; with the right support, you can achieve anything.”
             </p>
             <h5 className="mt-4">Stay in Touch</h5>
             <div className="d-flex align-items-center">

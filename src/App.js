@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Books from "./pages/Books";
 import Blogs from "./pages/Blogs";
+import CourseRegistration from "./components/CourseRegistration";
 import "./App.css";
 import './pages/all.css'
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/books" element={<Books/>} />
             <Route path="/blogs" element={<Blogs/>} />
             <Route path="/online-sessions" element={<LiveOnlineSessions />} />
+            <Route path="/course-registration" element={<CourseRegistration />} />
           </Routes>
         </main>
         <Footer />

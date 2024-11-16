@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { FaFacebook, FaInstagram, FaTiktok, FaTwitter, FaYoutube } from 'react-icons/fa';
+import ScheduleCallModal from './ScheduleCallModal';
 
 const Footer = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <footer className="py-5" style={{backgroundColor: '#F0FFFF'}}>
       <Container>
@@ -11,10 +13,10 @@ const Footer = () => {
           <Col className="text-white text-center py-5 rounded" style={{textAlign: 'center', justifyItems: 'center', backgroundColor: '#29AF8E'}}>
             <h1 className="fw-bold" style={{marginTop: '20px', marginBottom: '30px'}}>Change Starts with a Single Step</h1>
             <p style={{fontSize: '17px'}}>Every journey begins with one decision. Take that step today, and start moving toward the life you envision.</p>
-            <button class="button-64" role="button" style={{marginTop: '30px', marginBottom: '20px'}}><span class="text">Schedule a Call</span></button>
+            <button class="button-64" role="button" onClick={() => setShowModal(true)} style={{marginTop: '30px', marginBottom: '20px'}}><span class="text">Schedule a Call</span></button>
           </Col>
         </Row>
-
+        <ScheduleCallModal show={showModal} handleClose={() => setShowModal(false)} />
         <Row className="text-start">
           {/* Logo and Description */}
           <Col md={3} sm={6} className="mb-4">
@@ -37,12 +39,14 @@ const Footer = () => {
 
           {/* Useful Links */}
           <Col md={3} sm={6} className="mb-4">
-            <h5 className="fw-bold" style={{marginBottom: '30px'}}>Useful Links</h5>
+            <h5 className="fw-bold" style={{ marginBottom: '30px' }}>Useful Links</h5>
             <ul className="list-unstyled link-list">
-              <li>About me</li>
-              <li>Success stories</li>
-              <li>Coaching plans</li>
-              <li>Contact</li>
+              <li><a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</a></li>
+              <li><a href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>About me</a></li>
+              <li><a href="/online-sessions" style={{ textDecoration: 'none', color: 'inherit' }}>Live Online Sessions</a></li>
+              <li><a href="/books" style={{ textDecoration: 'none', color: 'inherit' }}>Books</a></li>
+              <li><a href="/blogs" style={{ textDecoration: 'none', color: 'inherit' }}>Blogs</a></li>
+              <li><a href="/contact" style={{ textDecoration: 'none', color: 'inherit' }}>Contacts</a></li>
             </ul>
           </Col>
 
