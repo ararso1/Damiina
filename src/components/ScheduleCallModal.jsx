@@ -121,9 +121,10 @@ const ScheduleCallModal = ({ show, handleClose }) => {
             </Form>
           ) : (
             // Show Calendly widget after form submission
+            //https://calendly.com/arasoalisho2/life-coach
             <div style={{ marginTop: '20px' }}>
               <h5 className="text-center mt-4">Choose an Appointment Date</h5>
-              <InlineWidget url="https://calendly.com/arasoalisho2/life-coach" />
+              <InlineWidget url="" />
             </div>
           )}
         </Modal.Body>
