@@ -3,17 +3,18 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg');
 const nodemailer = require('nodemailer');
+require('dotenv').config(); // Add this line to load .env variables
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// PostgreSQL connection configuration
+// PostgreSQL connection configuration using environment variables
 const pool = new Pool({
-  user: 'courseregistration_user', // Update with your PostgreSQL username
-  host: 'postgresql://courseregistration_user:kHMzDbKfXWzlSiNawkSTAQifhwhWybK7@dpg-csu5aut6l47c73dkfnqg-a/courseregistration', // Update if your PostgreSQL is hosted elsewhere
-  database: 'courseregistration', // Name of the database
-  password: 'kHMzDbKfXWzlSiNawkSTAQifhwhWybK7', // Update with your PostgreSQL password
-  port: 5432, // Default PostgreSQL port
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 // Function to create the registers table if it doesn't exist
@@ -54,8 +55,8 @@ app.use(bodyParser.json());
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'arasoalisho2@gmail.com', // Replace with your email
-    pass: 'duir rboo alel uhjk', // Replace with your email password or app password
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -80,7 +81,7 @@ app.post('/api/register', async (req, res) => {
     if (existingUser.rows.length > 0) {
       return res.status(400).json({ message: 'You are already registered.' });
     }
-    
+
     // Insert data into the database
     const result = await pool.query(
       'INSERT INTO registers (full_name, phone, email, address, age, gender, education, degree_or_masters, course, additional_info) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
@@ -89,7 +90,7 @@ app.post('/api/register', async (req, res) => {
 
     // Send a confirmation email
     const mailOptions = {
-      from: 'arasoalisho2@gmail.com', // Replace with your email
+      from: process.env.EMAIL_USER,
       to: email,
       subject: 'Course Registration Confirmation',
       text: `Dear ${fullName},\n\nYou are successfully registered for the course "${course}". We will contact you soon once the course starts.\n\nThanks,\nDamiina Course Team!`,
