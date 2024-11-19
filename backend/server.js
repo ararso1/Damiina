@@ -9,11 +9,11 @@ const PORT = process.env.PORT || 5000;
 
 // PostgreSQL connection configuration
 const pool = new Pool({
-  user: 'postgres', // Update with your PostgreSQL username
-  host: 'localhost', // Update if your PostgreSQL is hosted elsewhere
+  user: 'courseregistration_user', // Update with your PostgreSQL username
+  host: 'postgresql://courseregistration_user:kHMzDbKfXWzlSiNawkSTAQifhwhWybK7@dpg-csu5aut6l47c73dkfnqg-a/courseregistration', // Update if your PostgreSQL is hosted elsewhere
   database: 'courseregistration', // Name of the database
-  password: '1234', // Update with your PostgreSQL password
-  port: 8000, // Default PostgreSQL port
+  password: 'kHMzDbKfXWzlSiNawkSTAQifhwhWybK7', // Update with your PostgreSQL password
+  port: 5432, // Default PostgreSQL port
 });
 
 // Function to create the registers table if it doesn't exist
