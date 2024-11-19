@@ -233,3 +233,15 @@ h2{
   transform: scale(1.2);
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.2);
 }
+
+/* Regstration form css */
+.reg-from{
+  margin-top: 50px;
+  width: 40%;
+  background-color: aliceblue;
+}
+@media (max-width: 768px) {
+  .reg-from {
+    width: 100%;
+  }
+}
