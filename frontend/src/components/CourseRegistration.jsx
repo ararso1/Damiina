@@ -54,7 +54,7 @@ const CourseRegistration = () => {
     if (!validateForm()) return;
 
     try {
-      await axios.post('http://localhost:5000/api/register', formData);
+      await axios.post('https://damiina.onrender.com/api/register', formData);
       setSuccessMessage('Registration successful!');
       console.log('Registration successful!')
       setShowModal(true);
