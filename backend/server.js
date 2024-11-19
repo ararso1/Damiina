@@ -121,6 +121,23 @@ app.get('/api/registrations', async (req, res) => {
   }
 });
 
+// Route to delete a registration by ID
+app.delete('/api/registrations/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM registers WHERE id = $1 RETURNING *', [id]);
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'Registration not found.' });
+    }
+    res.status(200).json({ message: 'Registration deleted successfully.', data: result.rows[0] });
+  } catch (error) {
+    console.error('Error deleting registration:', error);
+    res.status(500).json({ error: 'Something went wrong.' });
+  }
+});
+
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
