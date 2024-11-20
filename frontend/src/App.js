@@ -10,6 +10,7 @@ import Contact from "./pages/Contact";
 import Books from "./pages/Books";
 import Blogs from "./pages/Blogs";
 import CourseRegistration from "./components/CourseRegistration";
+import InstructorRegistration from "./components/InstructorRegistration";
 import "./App.css";
 import './pages/all.css'
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/blogs" element={<Blogs/>} />
             <Route path="/online-sessions" element={<LiveOnlineSessions />} />
             <Route path="/course-registration" element={<CourseRegistration />} />
+            <Route path="/instructor-registration" element={<InstructorRegistration />} />
           </Routes>
         </main>
         <Footer />

@@ -245,3 +245,16 @@ h2{
     width: 100%;
   }
 }
+
+/* Regstration form css */
+.inst-form{
+  margin-top: 50px;
+  width: 40%;
+  background-color: aliceblue;
+}
+@media (max-width: 768px) {
+  .inst-form {
+    width: 100%;
+  }
+}
+
