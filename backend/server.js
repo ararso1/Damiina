@@ -50,7 +50,7 @@ createRegisterTable();
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 
 // Nodemailer configuration
 const transporter = nodemailer.createTransport({
@@ -272,6 +272,7 @@ app.post(
         }
         res.status(200).json({ message: 'Instructor registration successful!', data: result.rows[0] });
       });
+      
     } catch (error) {
       console.error('Error saving instructor:', error);
       res.status(500).json({ error: 'Something went wrong.' });
