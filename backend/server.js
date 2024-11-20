@@ -179,6 +179,10 @@ createInstructorTable();
 const multer = require('multer');
 const path = require('path');
 
+// Serve static files from the "uploads" directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
 // Configure Multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
