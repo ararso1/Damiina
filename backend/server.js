@@ -47,47 +47,10 @@ const createRegisterTable = async () => {
 // Call the function to create the table when the server starts
 createRegisterTable();
 
-const createInstructorTable = async () => {
-  const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS instructors (
-      id SERIAL PRIMARY KEY,
-      full_name VARCHAR(100) NOT NULL,
-      gender VARCHAR(10) NOT NULL,
-      age INT NOT NULL,
-      date_of_birth DATE NOT NULL,
-      email VARCHAR(100) NOT NULL UNIQUE,
-      phone VARCHAR(15) NOT NULL,
-      address VARCHAR(255) NOT NULL,
-      area_of_expertise VARCHAR(255) NOT NULL,
-      years_of_experience INT NOT NULL,
-      current_job_title VARCHAR(100) NOT NULL,
-      organization_name VARCHAR(100) NOT NULL,
-      highest_degree VARCHAR(50) NOT NULL,
-      field_of_study VARCHAR(255) NOT NULL,
-      institutions_attended TEXT NOT NULL,
-      courses_to_teach TEXT NOT NULL,
-      resume TEXT,
-      social_profiles TEXT,
-      short_bio TEXT,
-      why_join TEXT,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
-  `;
-
-  try {
-    await pool.query(createTableQuery);
-    console.log('Instructor table is ready.');
-  } catch (error) {
-    console.error('Error creating instructor table:', error);
-  }
-};
-
-// Call the function to create the table
-createInstructorTable();
-
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Nodemailer configuration
 const transporter = nodemailer.createTransport({
@@ -136,10 +99,8 @@ app.post('/api/register', async (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.error('Error sending email:', error);
         return res.status(500).json({ message: 'Registration successful, but email sending failed.' });
       }
-      console.log('Email sent:', info.response);
       res.status(200).json({ message: 'Registration successful!', data: result.rows[0] });
     });
   } catch (error) {
@@ -177,6 +138,44 @@ app.delete('/api/registrations/:id', async (req, res) => {
 
 
 //instructor
+const createInstructorTable = async () => {
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS instructors (
+      id SERIAL PRIMARY KEY,
+      full_name VARCHAR(100) NOT NULL,
+      gender VARCHAR(10) NOT NULL,
+      age INT NOT NULL,
+      date_of_birth DATE NOT NULL,
+      email VARCHAR(100) NOT NULL UNIQUE,
+      phone VARCHAR(15) NOT NULL,
+      address VARCHAR(255) NOT NULL,
+      area_of_expertise VARCHAR(255) NOT NULL,
+      years_of_experience INT NOT NULL,
+      current_job_title VARCHAR(100) NOT NULL,
+      organization_name VARCHAR(100) NOT NULL,
+      highest_degree VARCHAR(50) NOT NULL,
+      field_of_study VARCHAR(255) NOT NULL,
+      institutions_attended TEXT NOT NULL,
+      courses_to_teach TEXT NOT NULL,
+      resume TEXT,
+      social_profiles TEXT,
+      short_bio TEXT,
+      why_join TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `;
+
+  try {
+    await pool.query(createTableQuery);
+    console.log('Instructor table is ready.');
+  } catch (error) {
+    console.error('Error creating instructor table:', error);
+  }
+};
+
+// Call the function to create the table
+createInstructorTable();
+
 const multer = require('multer');
 const path = require('path');
 
@@ -193,53 +192,92 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Route to save instructor data
-app.post('/api/instructors', upload.fields([
-  { name: 'resume', maxCount: 1 }
-]), async (req, res) => {
-  const {
-    fullName,
-    gender,
-    age,
-    dateOfBirth,
-    email,
-    phone,
-    address,
-    areaOfExpertise,
-    yearsOfExperience,
-    currentJobTitle,
-    organizationName,
-    highestDegree,
-    fieldOfStudy,
-    institutionsAttended,
-    coursesToTeach,
-    socialProfiles,
-    shortBio,
-    whyJoin,
-  } = req.body;
+app.post(
+  '/api/instructors',
+  upload.fields([{ name: 'resume', maxCount: 1 }]),
+  async (req, res) => {
 
-  const resumePath = req.files['resume'] ? req.files['resume'][0].path : null;
-  // const certificatesPaths = req.files['certificates']
-  //   ? req.files['certificates'].map((file) => file.path).join(',')
-  //   : null;
+    const {
+      fullName,
+      gender,
+      age,
+      dateOfBirth,
+      email,
+      phone,
+      address,
+      areaOfExpertise,
+      yearsOfExperience,
+      currentJobTitle,
+      organizationName,
+      highestDegree,
+      fieldOfStudy,
+      institutionsAttended,
+      coursesToTeach,
+      socialProfiles,
+      shortBio,
+      whyJoin,
+    } = req.body;
 
-  try {
-    const existingInstructor = await pool.query('SELECT * FROM instructors WHERE email = $1', [email]);
-    if (existingInstructor.rows.length > 0) {
-      return res.status(400).json({ message: 'This email is already registered.' });
+    const resumePath = req.files['resume'] ? req.files['resume'][0].path : null;
+
+    try {
+      const existingInstructor = await pool.query(
+        'SELECT * FROM instructors WHERE email = $1',
+        [email]
+      );
+      if (existingInstructor.rows.length > 0) {
+        return res.status(400).json({ message: 'This email is already registered.' });
+      }
+
+      const result = await pool.query(
+        `INSERT INTO instructors 
+        (full_name, gender, age, date_of_birth, email, phone, address, area_of_expertise, 
+        years_of_experience, current_job_title, organization_name, highest_degree, field_of_study, 
+        institutions_attended, courses_to_teach, resume, social_profiles, short_bio, why_join)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19) 
+        RETURNING *`,
+        [
+          fullName,
+          gender,
+          parseInt(age), // Ensure age is an integer
+          dateOfBirth,
+          email,
+          phone,
+          address,
+          areaOfExpertise,
+          parseInt(yearsOfExperience), // Ensure years_of_experience is an integer
+          currentJobTitle,
+          organizationName,
+          highestDegree,
+          fieldOfStudy,
+          institutionsAttended,
+          coursesToTeach,
+          resumePath,
+          socialProfiles,
+          shortBio,
+          whyJoin,
+        ]
+      );
+      // Send a confirmation email
+      const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Your Data Recieved Confirmation',
+        text: `Dear ${fullName},\n\nYou are successfully registered for our course "${coursesToTeach}" as an instructor. We will contact you soon.\n\nThanks,\nDamiina Course Team!`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ message: 'Registration successful, but email sending failed.' });
+        }
+        res.status(200).json({ message: 'Instructor registration successful!', data: result.rows[0] });
+      });
+    } catch (error) {
+      console.error('Error saving instructor:', error);
+      res.status(500).json({ error: 'Something went wrong.' });
     }
-
-    const result = await pool.query(
-      `INSERT INTO instructors (full_name, gender, age, date_of_birth, email, phone, address, area_of_expertise, years_of_experience, current_job_title, organization_name, highest_degree, field_of_study, institutions_attended, courses_to_teach, resume, social_profiles, short_bio, why_join)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19) RETURNING *`,
-      [fullName, gender, age, dateOfBirth, email, phone, address, areaOfExpertise, yearsOfExperience, currentJobTitle, organizationName, highestDegree, fieldOfStudy, institutionsAttended, coursesToTeach, resumePath, socialProfiles, shortBio, whyJoin]
-    );
-
-    res.status(200).json({ message: 'Instructor registration successful!', data: result.rows[0] });
-  } catch (error) {
-    console.error('Error saving instructor:', error);
-    res.status(500).json({ error: 'Something went wrong.' });
   }
-});
+);
 
 
 // Start the server
