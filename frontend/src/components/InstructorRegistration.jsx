@@ -94,7 +94,7 @@ const InstructorRegistration = () => {
     try {
       // Submit form data to the server
       //console.log(formDataObj, 'dataaaaaaaaaaa')
-      await axios.post('http://localhost:5000/api/instructors', formDataObj, {
+      await axios.post('https://damiina.onrender.com/api/instructors', formDataObj, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setSuccessMessage('Your Information Submitted Successful!');
