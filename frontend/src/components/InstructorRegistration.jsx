@@ -298,13 +298,19 @@ const InstructorRegistration = () => {
   
         <Form.Group className="mb-3">
           <Form.Label>Courses You Can Teach</Form.Label>
-          <Form.Control
-            type="text"
+          <Form.Select
             name="coursesToTeach"
             value={formData.coursesToTeach}
             onChange={handleInputChange}
             isInvalid={!!errors.coursesToTeach}
-          />
+          >
+            <option value="">Choose...</option>
+            <option value="Website Development">Website Development</option>
+            <option value="Mobile App Development">Mobile App Development</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="Cryptocurrency">Cryptocurrency</option>
+            <option value="Forex">Forex</option>
+          </Form.Select>
           <Form.Control.Feedback type="invalid">{errors.coursesToTeach}</Form.Control.Feedback>
         </Form.Group>
   
