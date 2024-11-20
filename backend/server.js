@@ -280,6 +280,32 @@ app.post(
   }
 );
 
+//fetch instructors
+app.get('/api/fetch_instructors', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM instructors ORDER BY created_at DESC'); // Fetch all rows
+    res.status(200).json(result.rows); // Send the rows as JSON
+  } catch (error) {
+    console.error('Error fetching registrations:', error);
+    res.status(500).json({ error: 'Something went wrong.' });
+  }
+});
+
+// Route to delete instructors by ID
+app.delete('/api/instructors_del/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM instructors WHERE id = $1 RETURNING *', [id]);
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'Registration not found.' });
+    }
+    res.status(200).json({ message: 'Registration deleted successfully.', data: result.rows[0] });
+  } catch (error) {
+    console.error('Error deleting registration:', error);
+    res.status(500).json({ error: 'Something went wrong.' });
+  }
+});
 
 // Start the server
 app.listen(PORT, () => {

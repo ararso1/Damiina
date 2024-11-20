@@ -118,6 +118,7 @@ const InstructorRegistration = () => {
   return (
     <Container className="inst-form">
       <h2>Instructor Registration</h2>
+      <h4>Galmee Barsiisota Qofaaf</h4>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Full Name</Form.Label>
