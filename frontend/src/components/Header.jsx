@@ -14,9 +14,16 @@ const Header = () => {
           <p className="lead mb-4">
             Discover the tools, insights, and confidence to overcome obstacles and push beyond limitations. Together, we’ll nurture your strengths and craft a path toward your highest potential.
           </p>
-            <button className="button-64" role="button" onClick={() => setShowModal(true)}>
+          <Button
+              variant="success"
+              size="lg"
+              onClick={() => window.location.href = '/course-registration'}
+            >
+              Register Now
+            </Button>
+{/*             <button className="button-64" role="button" onClick={() => setShowModal(true)}>
               <span className="text">Schedule a Call</span>
-            </button>
+            </button> */}
         </Container>
       </div>
 

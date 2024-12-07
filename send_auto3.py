@@ -6,23 +6,23 @@ import re
 import time
 
 # Email credentials
-sender_email = "ararso@daminaa.org"
-sender_password = "gwgf btwa tuay qojg"  # App Password for Google Workspace
+# sender_email = "ararso@daminaa.org"
+# sender_password = "gwgf btwa tuay qojg"  # App Password for Google Workspace
 
-# sender_email = "areealisho12@gmail.com"
-# sender_password = "vilx efjr ijrh bpxe"  # Use an App Password for Gmail
+sender_email = "areealisho12@gmail.com"
+sender_password = "vilx efjr ijrh bpxe"  # Use an App Password for Gmail
 
 # Links
 website_link = "http://elearning.daminaa.org/"
 meet_link = "meet.google.com/hzo-bbay-wki"
 
 # Load student data from processed file
-file_path = "Mobile_App_Development_with_passwords.csv"  # Update with your file path
+file_path = "website_development_with_passwords.csv"  # Update with your file path
 data = pd.read_csv(file_path)
 
 # Filter students enrolled in "Forex"
 data['email'] = data['email'].str.strip()  # Clean up email field
-Forex_students = data[data['course'] == 'Mobile App Development']
+Forex_students = data[data['course'] == 'Website Development']
 
 # Email validation function
 def is_valid_email(email):
