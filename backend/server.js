@@ -136,6 +136,59 @@ app.delete('/api/registrations/:id', async (req, res) => {
   }
 });
 
+// Function to create the course_update table if it doesn't exist
+const createCourseUpdateTable = async () => {
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS course_update (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(100) NOT NULL,
+      course VARCHAR(50) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `;
+
+  try {
+    await pool.query(createTableQuery);
+    console.log('Course Update table is ready.');
+  } catch (error) {
+    console.error('Error creating course_update table:', error);
+  }
+};
+createCourseUpdateTable();
+
+// Route to handle course update logic
+app.post('/api/course-update', async (req, res) => {
+  const { email, course } = req.body;
+
+  try {
+    // 1. Check if the user exists in the 'registers' table
+    const existingUser = await pool.query('SELECT * FROM registers WHERE email = $1', [email]);
+
+    if (existingUser.rows.length === 0) {
+      return res.status(404).json({ message: 'You are not registered, please register first.' });
+    }
+
+    // Extract user info
+    const user = existingUser.rows[0];
+
+    // 2. Check if the previous course is 'Digital Marketing' and ID is 2010 or higher
+    if (user.course !== 'Digital Marketing' || user.id < 2010) {
+      return res.status(400).json({ message: 'You are registered, but your previous course is not Digital Marketing or you are not in this batch.' });
+    }
+
+    // 3. Insert the new course into the 'course_update' table
+    const result = await pool.query(
+      'INSERT INTO course_update (email, course) VALUES ($1, $2) RETURNING *',
+      [email, course]
+    );
+
+    res.status(200).json({ message: 'Successfully updated your course, thanks!', data: result.rows[0] });
+
+  } catch (error) {
+    console.error('Error updating course:', error);
+    res.status(500).json({ error: 'Something went wrong.' });
+  }
+});
 
 //instructor
 const createInstructorTable = async () => {
