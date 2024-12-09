@@ -78,14 +78,23 @@ app.post('/api/register', async (req, res) => {
 
   try {
     // Check if the email is already registered
-    const existingUser = await pool.query('SELECT * FROM registers WHERE email = $1', [email]);
-    if (existingUser.rows.length > 0) {
-      return res.status(400).json({ message: 'You are already registered.' });
+    const existingUserByEmail = await pool.query('SELECT * FROM registers WHERE email = $1', [email]);
+    if (existingUserByEmail.rows.length > 0) {
+      return res.status(400).json({ message: 'Your are already registered with this email.' });
+    }
+
+    // Check if the phone is already registered
+    const existingUserByPhone = await pool.query('SELECT * FROM registers WHERE phone = $1', [phone]);
+    if (existingUserByPhone.rows.length > 0) {
+      return res.status(400).json({ message: 'Your are already registered with this phone number.' });
     }
 
     // Insert data into the database
     const result = await pool.query(
-      'INSERT INTO registers (full_name, phone, email, address, age, gender, education, degree_or_masters, course, additional_info) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
+      `INSERT INTO registers 
+      (full_name, phone, email, address, age, gender, education, degree_or_masters, course, additional_info) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
+      RETURNING *`,
       [fullName, phone, email, address, age, gender, education, degreeOrMasters, course, additionalInfo]
     );
 
