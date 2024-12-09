@@ -13,6 +13,7 @@ import CourseRegistration from "./components/CourseRegistration";
 import InstructorRegistration from "./components/InstructorRegistration";
 import "./App.css";
 import './pages/all.css'
+import CourseUpdateForm from "./components/CourseUpdateForm";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/online-sessions" element={<LiveOnlineSessions />} />
             <Route path="/course-registration" element={<CourseRegistration />} />
             <Route path="/instructor-registration" element={<InstructorRegistration />} />
+            <Route path="/course-update-form" element={<CourseUpdateForm />} />
           </Routes>
         </main>
         <Footer />

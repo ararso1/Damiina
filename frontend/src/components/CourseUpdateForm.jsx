@@ -37,7 +37,7 @@ const CourseUpdateForm = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container className="reg-from">
       <h2>Update Your Course</h2>
       {message && (
         <Alert variant={messageType === 'success' ? 'success' : 'danger'}>{message}</Alert>
