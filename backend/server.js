@@ -181,7 +181,7 @@ app.post('/api/course-update', async (req, res) => {
     const user = existingUser.rows[0];
 
     // 2. Check if the previous course is 'Digital Marketing' and ID is 2010 or higher
-    if (user.course !== 'Digital Marketing' || user.id < 2010) {
+    if (!user.course.includes('Digital Marketing') || user.id > 2010) {
       return res.status(400).json({ message: 'You are registered, but your previous course is not Digital Marketing or you are not in this batch.' });
     }
 
