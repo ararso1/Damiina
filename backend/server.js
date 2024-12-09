@@ -176,7 +176,14 @@ app.post('/api/course-update', async (req, res) => {
       return res.status(400).json({ message: 'You are registered, but your previous course is not Digital Marketing or you are not in this batch.' });
     }
 
-    // 3. Insert the new course into the 'course_update' table
+    // 3. Check if the user has already updated their course in the 'course_update' table
+    const existingCourseUpdate = await pool.query('SELECT * FROM course_update WHERE email = $1', [email]);
+
+    if (existingCourseUpdate.rows.length > 0) {
+      return res.status(400).json({ message: 'You have already updated your course.' });
+    }
+
+    // 4. Insert the new course into the 'course_update' table
     const result = await pool.query(
       'INSERT INTO course_update (email, course) VALUES ($1, $2) RETURNING *',
       [email, course]
