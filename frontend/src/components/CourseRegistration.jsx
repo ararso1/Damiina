@@ -52,7 +52,6 @@ const CourseRegistration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
     try {
       await axios.post('https://damiina.onrender.com/api/register', formData);
       setSuccessMessage('Registration successful!');
@@ -68,7 +67,9 @@ const CourseRegistration = () => {
       if (error.response && error.response.data.message === 'You are already registered.') {
         setErrors({ email: 'This email is already registered.' });
         console.log('This email is already registered.')
-      } else {
+      } else if (error.response && error.response.data.message === 'Your are already registered with this phone number.') {
+        setErrors({ phone: 'This phone number is already registered.' });
+      }else {
         console.error(error);
       }
     }
@@ -100,7 +101,7 @@ const CourseRegistration = () => {
             onChange={handleInputChange}
             isInvalid={!!errors.phone}
           />
-          <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.phone || 'This phone number is already registered.'}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3">

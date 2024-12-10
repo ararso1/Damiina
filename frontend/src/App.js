@@ -9,7 +9,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Books from "./pages/Books";
 import Blogs from "./pages/Blogs";
-import CourseRegistration from "./components/CourseRegistration1";
+import CourseRegistration from "./components/CourseRegistration";
 import InstructorRegistration from "./components/InstructorRegistration";
 import "./App.css";
 import './pages/all.css'

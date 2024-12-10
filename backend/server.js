@@ -75,43 +75,44 @@ app.post('/api/register', async (req, res) => {
     course,
     additionalInfo,
   } = req.body;
-
   try {
     // Check if the email is already registered
-    const existingUserByEmail = await pool.query('SELECT * FROM registers WHERE email = $1', [email]);
-    if (existingUserByEmail.rows.length > 0) {
-      return res.status(400).json({ message: 'Your are already registered with this email.' });
+    console.log('leeeeeeeeel')
+    const existingUser = await pool.query('SELECT * FROM registers WHERE email = $1', [email]);
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ message: 'You are already registered.' });
     }
 
     // Check if the phone is already registered
     const existingUserByPhone = await pool.query('SELECT * FROM registers WHERE phone = $1', [phone]);
     if (existingUserByPhone.rows.length > 0) {
+      
       return res.status(400).json({ message: 'Your are already registered with this phone number.' });
     }
 
     // Insert data into the database
+    
     const result = await pool.query(
-      `INSERT INTO registers 
-      (full_name, phone, email, address, age, gender, education, degree_or_masters, course, additional_info) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
-      RETURNING *`,
+      'INSERT INTO registers (full_name, phone, email, address, age, gender, education, degree_or_masters, course, additional_info) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
       [fullName, phone, email, address, age, gender, education, degreeOrMasters, course, additionalInfo]
     );
 
+    
     // Send a confirmation email
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
       subject: 'Course Registration Confirmation',
-      text: `Dear ${fullName},\n\nYou are successfully registered for the course "${course}". We will contact you soon once the course starts.\n\nThanks,\nDamiina Course Team!`,
+      text: `Dear ${fullName},\n\nYou are successfully registered for the course "${course}". We will contact you soon once the course starts.\n\nThanks,\nDamiina E-learning Team!`,
     };
-
+    
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         return res.status(500).json({ message: 'Registration successful, but email sending failed.' });
       }
       res.status(200).json({ message: 'Registration successful!', data: result.rows[0] });
     });
+    
   } catch (error) {
     console.error('Error saving to database:', error);
     res.status(500).json({ error: 'Something went wrong.' });
@@ -331,12 +332,13 @@ app.post(
           whyJoin,
         ]
       );
+
       // Send a confirmation email
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
         subject: 'Your Data Recieved Confirmation',
-        text: `Dear ${fullName},\n\nYou are successfully registered for our course "${coursesToTeach}" as an instructor. We will contact you soon.\n\nThanks,\nDamiina Course Team!`,
+        text: `Dear ${fullName},\n\nYou are successfully registered for our course "${coursesToTeach}" as an instructor. We will contact you soon.\n\nThanks,\nDamiina E-learning Team!`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -345,7 +347,7 @@ app.post(
         }
         res.status(200).json({ message: 'Instructor registration successful!', data: result.rows[0] });
       });
-      
+
     } catch (error) {
       console.error('Error saving instructor:', error);
       res.status(500).json({ error: 'Something went wrong.' });
