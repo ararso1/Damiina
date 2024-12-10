@@ -185,7 +185,7 @@ const InstructorRegistration = () => {
             onChange={handleInputChange}
             isInvalid={!!errors.email}
           />
-          <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.email || "This email is already registered."}</Form.Control.Feedback>
         </Form.Group>
   
         <Form.Group className="mb-3">
