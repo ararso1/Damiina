@@ -15,6 +15,7 @@ const CourseRegistration = () => {
     education: '',
     degreeOrMasters: '',
     course: '',
+    computerReqts: '',
     additionalInfo: '',
   });
   const [errors, setErrors] = useState({});
@@ -42,6 +43,10 @@ const CourseRegistration = () => {
       ['Degree', 'Master\'s'].includes(formData.education) &&
       !formData.degreeOrMasters
     )
+    if (
+      ['Website Development', 'Mobile App Development'].includes(formData.course) &&
+      !formData.computerReqts
+    )
       formErrors.degreeOrMasters = 'Please specify your degree or master\'s field';
     if (!formData.course) formErrors.course = 'Course selection is required';
 
@@ -52,6 +57,7 @@ const CourseRegistration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+    console.log(formData)
     try {
       await axios.post('https://damiina.onrender.com/api/register', formData);
       setSuccessMessage('Registration successful!');
@@ -218,6 +224,37 @@ const CourseRegistration = () => {
           </Form.Select>
           <Form.Control.Feedback type="invalid">{errors.course}</Form.Control.Feedback>
         </Form.Group>
+
+        {['Website Development', 'Mobile App Development'].includes(formData.course) && (
+          <Form.Group className="mb-3">
+            <Form.Label>
+              Do you have access to a computer or will you get one shortly? 
+              (This course requires a computer to learn)
+            </Form.Label>
+            <div>
+              <Form.Check 
+                type="radio" 
+                label="Yes, I have access to a computer." 
+                name="computerReqts" 
+                value="Yes"
+                checked={formData.computerReqts === 'Yes'} 
+                onChange={handleInputChange}
+                isInvalid={!!errors.computerReqts}
+              />
+              <Form.Check 
+                type="radio" 
+                label="No, I don't have a computer" 
+                name="computerReqts" 
+                value="No"
+                checked={formData.computerReqts === 'No'} 
+                onChange={handleInputChange}
+                isInvalid={!!errors.computerReqts}
+              />
+              
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.computerReqts}</Form.Control.Feedback>
+          </Form.Group>
+        )}
 
         <Form.Group className="mb-3">
           <Form.Label>Anything You Want to Let Us Know</Form.Label>

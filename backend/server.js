@@ -31,6 +31,7 @@ const createRegisterTable = async () => {
       education VARCHAR(50) NOT NULL,
       degree_or_masters VARCHAR(255),
       course VARCHAR(50) NOT NULL,
+      computer_reqts VARCHAR(50) NOT NULL,
       additional_info TEXT,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -73,6 +74,7 @@ app.post('/api/register', async (req, res) => {
     education,
     degreeOrMasters,
     course,
+    computerReqts,
     additionalInfo,
   } = req.body;
   try {
@@ -91,10 +93,9 @@ app.post('/api/register', async (req, res) => {
     }
 
     // Insert data into the database
-    
     const result = await pool.query(
-      'INSERT INTO registers (full_name, phone, email, address, age, gender, education, degree_or_masters, course, additional_info) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
-      [fullName, phone, email, address, age, gender, education, degreeOrMasters, course, additionalInfo]
+      'INSERT INTO registers (full_name, phone, email, address, age, gender, education, degree_or_masters, course, computer_reqts, additional_info) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *',
+      [fullName, phone, email, address, age, gender, education, degreeOrMasters, course, computerReqts, additionalInfo]
     );
 
     
