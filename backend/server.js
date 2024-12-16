@@ -31,7 +31,7 @@ const createRegisterTable = async () => {
       education VARCHAR(50) NOT NULL,
       degree_or_masters VARCHAR(255),
       course VARCHAR(50) NOT NULL,
-      computer_reqts VARCHAR(50) NOT NULL,
+      computer_reqts VARCHAR(50) NULL,
       additional_info TEXT,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
