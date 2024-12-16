@@ -16,6 +16,21 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
+// Function to alter the registers table to add the computer_reqts field
+const alterRegisterTable = async () => {
+  const alterTableQuery = `
+    ALTER TABLE registers
+    ADD COLUMN IF NOT EXISTS computer_reqts VARCHAR(255);
+  `;
+
+  try {
+    await pool.query(alterTableQuery);
+    console.log('Register table has been updated with computer_reqts column.');
+  } catch (error) {
+    console.error('Error altering register table:', error);
+  }
+};
+alterRegisterTable();
 
 // Function to create the registers table if it doesn't exist
 const createRegisterTable = async () => {
@@ -31,7 +46,7 @@ const createRegisterTable = async () => {
       education VARCHAR(50) NOT NULL,
       degree_or_masters VARCHAR(255),
       course VARCHAR(50) NOT NULL,
-      computer_reqts VARCHAR(50) NULL,
+      computer_reqts VARCHAR(50),
       additional_info TEXT,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
