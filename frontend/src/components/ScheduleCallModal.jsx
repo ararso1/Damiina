@@ -147,15 +147,27 @@ const ScheduleCallModal = ({ show, handleClose }) => {
               </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Transaction ID</Form.Label>
-              <Form.Control
-                type="text"
-                name="transactionId"
-                value={formData.transactionId}
-                onChange={handleInputChange}
-                required
-              />
-            </Form.Group>
+            <Form.Label>Transaction ID</Form.Label>
+            <Form.Control
+              type="text"
+              name="transactionId"
+              value={formData.transactionId}
+              onChange={(e) => {
+                const { value } = e.target;
+                // Update the formData and clear errors if within range
+                setFormData({ ...formData, transactionId: value });
+                if (value.length >= 10 && value.length <= 16) {
+                  setMessage({ type: '', text: '' }); // Clear error message
+                }
+              }}
+              isInvalid={!!message.text && message.type === 'error'}
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              {message.text}
+            </Form.Control.Feedback>
+          </Form.Group>
+
             <Button variant="primary" type="submit">
               Submit
             </Button>
