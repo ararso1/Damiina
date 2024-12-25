@@ -33,7 +33,8 @@ const ScheduleCallModal = ({ show, handleClose }) => {
     }
 
     try {
-      await axios.post('http://localhost:5000/schedule', formData);
+      console.log(formData, 'kkkksssssss')
+      await axios.post('https://damiina.onrender.com/api/schedule', formData);
       setMessage({ type: 'success', text: 'Information submitted successfully!' });
       setStep(3); // Proceed to Calendly after successful submission
     } catch (error) {

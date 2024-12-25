@@ -411,7 +411,7 @@ const createScheduleTable = async () => {
 createScheduleTable();
 
 // Route to handle scheduling submissions
-app.post('/schedule', async (req, res) => {
+app.post('/api/schedule', async (req, res) => {
   const { fullName, email, phone, country, program, transactionId } = req.body;
 
   try {
