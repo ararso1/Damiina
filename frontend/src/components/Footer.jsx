@@ -13,14 +13,14 @@ const Footer = () => {
           <Col className="text-white text-center py-5 rounded" style={{textAlign: 'center', justifyItems: 'center', backgroundColor: '#29AF8E'}}>
             <h1 className="fw-bold" style={{marginTop: '20px', marginBottom: '30px'}}>Change Starts with a Single Step</h1>
             <p style={{fontSize: '17px'}}>Every journey begins with one decision. Take that step today, and start moving toward the life you envision.</p>
-            {/* <button class="button-64" role="button" onClick={() => setShowModal(true)} style={{marginTop: '30px', marginBottom: '20px'}}><span class="text">Schedule a Call</span></button> */}
-            <Button
+            <button class="button-64" role="button" onClick={() => setShowModal(true)} style={{marginTop: '30px', marginBottom: '20px'}}><span class="text">Schedule a Call</span></button>
+{/*             <Button
               variant="success"
               size="lg"
               onClick={() => window.location.href = '/course-registration'}
             >
               Register Now
-            </Button>
+            </Button> */}
           </Col>
         </Row>
         <ScheduleCallModal show={showModal} handleClose={() => setShowModal(false)} />

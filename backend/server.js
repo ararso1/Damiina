@@ -384,6 +384,60 @@ app.delete('/api/instructors_del/:id', async (req, res) => {
   }
 });
 
+// Function to create the "schedule" table if it doesn't exist
+const createScheduleTable = async () => {
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS schedule (
+      id SERIAL PRIMARY KEY,
+      full_name VARCHAR(100) NOT NULL,
+      email VARCHAR(100) NOT NULL,
+      phone VARCHAR(15) NOT NULL,
+      country VARCHAR(100) NOT NULL,
+      program VARCHAR(100) NOT NULL,
+      transaction_id VARCHAR(100) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `;
+
+  try {
+    await pool.query(createTableQuery);
+    console.log('Schedule table is ready.');
+  } catch (error) {
+    console.error('Error creating schedule table:', error);
+  }
+};
+
+// Call the function to create the table
+createScheduleTable();
+
+// Route to handle scheduling submissions
+app.post('/schedule', async (req, res) => {
+  const { fullName, email, phone, country, program, transactionId } = req.body;
+
+  try {
+    // Check for existing email or phone
+    // const existingEntry = await pool.query(
+    //   'SELECT * FROM schedule WHERE email = $1 OR phone = $2',
+    //   [email, phone]
+    // );
+    // if (existingEntry.rows.length > 0) {
+    //   return res.status(400).json({ message: 'Email or phone number is already registered.' });
+    // }
+    console.log(fullName,'lllll')
+    // Insert new schedule entry
+    const result = await pool.query(
+      `INSERT INTO schedule (full_name, email, phone, country, program, transaction_id)
+       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+      [fullName, email, phone, country, program, transactionId]
+    );
+
+    res.status(200).json({ message: 'Schedule entry saved successfully!', data: result.rows[0] });
+  } catch (error) {
+    console.error('Error saving schedule entry:', error);
+    res.status(500).json({ error: 'Something went wrong.' });
+  }
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
