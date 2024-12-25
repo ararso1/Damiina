@@ -27,6 +27,11 @@ const ScheduleCallModal = ({ show, handleClose }) => {
       return;
     }
 
+    if (formData.transactionId.length < 10 || formData.transactionId.length > 16) {
+      setMessage({ type: 'error', text: 'Invalid transaction Id, please provide correct trasaction id' });
+      return;
+    }
+
     try {
       await axios.post('http://localhost:5000/schedule', formData);
       setMessage({ type: 'success', text: 'Information submitted successfully!' });
