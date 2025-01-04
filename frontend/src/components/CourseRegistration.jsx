@@ -211,16 +211,19 @@ const CourseRegistration = () => {
             onChange={handleInputChange}
             isInvalid={!!errors.course}
           >
-            <option value="">Choose</option>
+            <option value="">Choose...</option>
+            <option value="Afaan Oromoo">Afaan Oromoo</option>
+            <option value="Afaan Ingiliffaa">Afaan Ingiliffaa</option>
+            <option value="Afaan Arabaa">Afaan Arabaa</option>
+            <option value="Basic Computer Skill and Microsoft 365 Products">Basic Computer Skill and Microsoft 365 Products</option>
             <option value="Website Development">Website Development</option>
             <option value="Mobile App Development">Mobile App Development</option>
             <option value="Cryptocurrency">Cryptocurrency</option>
-            <option value="Forex">Forex</option>
+            <option value="Forex Trading">Forex</option>
             <option value="Digital Marketing(Graphic Design)">Digital Marketing(Graphic Design)</option>
             <option value="Digital Marketing(Video Editing)">Digital Marketing(Video Editing)</option>
             <option value="Digital Marketing(Social Media Marketing)">Digital Marketing(Social Media Marketing)</option>
-            <option value="Digital Marketing(Amazon Affiliate Marketing)">Digital Marketing(Amazon Affiliate Marketing)</option>
-            <option value="Digital Marketing(Google Ads Tutorial)">Digital Marketing(Google Ads Tutorial)</option>
+            <option value="Digital Marketing(Amazon Affiliate and Google Ads)">Digital Marketing(Amazon Affiliate and Google Ads)</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">{errors.course}</Form.Control.Feedback>
         </Form.Group>

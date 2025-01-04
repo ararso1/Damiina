@@ -21,7 +21,7 @@ const pool = new Pool({
 // Function to create the registers table if it doesn't exist
 const createRegisterTable = async () => {
   const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS registers (
+    CREATE TABLE IF NOT EXISTS new_registers (
       id SERIAL PRIMARY KEY,
       full_name VARCHAR(100) NOT NULL,
       phone VARCHAR(15) NOT NULL,
@@ -81,13 +81,13 @@ app.post('/api/register', async (req, res) => {
   try {
     // Check if the email is already registered
     console.log('leeeeeeeeel')
-    const existingUser = await pool.query('SELECT * FROM registers WHERE email = $1', [email]);
+    const existingUser = await pool.query('SELECT * FROM new_registers WHERE email = $1', [email]);
     if (existingUser.rows.length > 0) {
       return res.status(400).json({ message: 'You are already registered.' });
     }
 
     // Check if the phone is already registered
-    const existingUserByPhone = await pool.query('SELECT * FROM registers WHERE phone = $1', [phone]);
+    const existingUserByPhone = await pool.query('SELECT * FROM new_registers WHERE phone = $1', [phone]);
     if (existingUserByPhone.rows.length > 0) {
       
       return res.status(400).json({ message: 'Your are already registered with this phone number.' });
@@ -95,7 +95,7 @@ app.post('/api/register', async (req, res) => {
 
     // Insert data into the database
     const result = await pool.query(
-      'INSERT INTO registers (full_name, phone, email, address, age, gender, education, degree_or_masters, course, computer_reqts, additional_info) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *',
+      'INSERT INTO new_registers (full_name, phone, email, address, age, gender, education, degree_or_masters, course, computer_reqts, additional_info) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *',
       [fullName, phone, email, address, age, gender, education, degreeOrMasters, course, computerReqts, additionalInfo]
     );
 
@@ -124,7 +124,7 @@ app.post('/api/register', async (req, res) => {
 // Route to fetch all registrations
 app.get('/api/registrations', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM registers ORDER BY created_at DESC'); // Fetch all rows
+    const result = await pool.query('SELECT * FROM new_registers ORDER BY created_at DESC'); // Fetch all rows
     res.status(200).json(result.rows); // Send the rows as JSON
   } catch (error) {
     console.error('Error fetching registrations:', error);
@@ -137,7 +137,7 @@ app.delete('/api/registrations/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await pool.query('DELETE FROM registers WHERE id = $1 RETURNING *', [id]);
+    const result = await pool.query('DELETE FROM new_registers WHERE id = $1 RETURNING *', [id]);
     if (result.rowCount === 0) {
       return res.status(404).json({ message: 'Registration not found.' });
     }

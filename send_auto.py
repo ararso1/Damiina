@@ -49,7 +49,6 @@ def send_email(to_email, name):
 
 # Send emails to students starting from index 792
 for index, row in data.iterrows():
-    if index >= 792:  # Skip rows before index 792
         send_email(row['email'], row['full_name'])
 
 print("All emails have been sent!")
