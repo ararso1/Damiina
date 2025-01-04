@@ -87,7 +87,7 @@ const CourseRegistration = () => {
       {/* {success && <Alert variant="success">{success}</Alert>} */}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
-          <Form.Label>Full Name</Form.Label>
+          <Form.Label>Maqaa Guutuu</Form.Label>
           <Form.Control
             type="text"
             name="fullName"
@@ -99,7 +99,7 @@ const CourseRegistration = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Phone</Form.Label>
+          <Form.Label>Lakkoofsa Bilbilaa</Form.Label>
           <Form.Control
             type="tel"
             name="phone"
@@ -125,7 +125,7 @@ const CourseRegistration = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Living Address</Form.Label>
+          <Form.Label>Iddoo Jireenya</Form.Label>
           <Form.Control
             type="text"
             name="address"
@@ -137,7 +137,7 @@ const CourseRegistration = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Age</Form.Label>
+          <Form.Label>Umrii</Form.Label>
           <Form.Control
             type="number"
             name="age"
@@ -149,7 +149,7 @@ const CourseRegistration = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Gender</Form.Label>
+          <Form.Label>Saala</Form.Label>
           <Form.Check
             type="radio"
             label="Male"
@@ -169,7 +169,7 @@ const CourseRegistration = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Educational Background</Form.Label>
+          <Form.Label>Sadarkaa Barnoota</Form.Label>
           <Form.Select
             name="education"
             value={formData.education}
@@ -204,7 +204,7 @@ const CourseRegistration = () => {
         )}
 
         <Form.Group className="mb-3">
-          <Form.Label>Select a Course</Form.Label>
+          <Form.Label>Barnoota Feetu Filadhu</Form.Label>
           <Form.Select
             name="course"
             value={formData.course}
@@ -228,7 +228,7 @@ const CourseRegistration = () => {
           <Form.Control.Feedback type="invalid">{errors.course}</Form.Control.Feedback>
         </Form.Group>
 
-        {['Website Development', 'Mobile App Development'].includes(formData.course) && (
+        {['Website Development', 'Mobile App Development', 'Basic Computer Skill and Microsoft 365 Products'].includes(formData.course) && (
           <Form.Group className="mb-3">
             <Form.Label>
               Do you have access to a computer or will you get one shortly? 
@@ -260,7 +260,7 @@ const CourseRegistration = () => {
         )}
 
         <Form.Group className="mb-3">
-          <Form.Label>Anything You Want to Let Us Know</Form.Label>
+          <Form.Label>Yaada nuuf qabdu:</Form.Label>
           <Form.Control
             as="textarea"
             name="additionalInfo"
