@@ -216,7 +216,7 @@ const CourseRegistration = () => {
             <option value="Afaan Ingiliffaa">Afaan Ingiliffaa</option>
             <option value="Afaan Arabaa">Afaan Arabaa</option>
             <option value="Afaan Amhara">Afaan Amhara</option>
-            <option value="Basic Computer Skill and Microsoft 365 Products">Basic Computer Skill and Microsoft 365 Products</option>
+            <option value="Basic Computer Skill and Microsoft 365 Products">Basic Computer Skill and Microsoft Office</option>
             <option value="Website Development">Website Development</option>
             <option value="Mobile App Development">Mobile App Development</option>
             <option value="Cryptocurrency">Cryptocurrency</option>
