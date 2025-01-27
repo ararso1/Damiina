@@ -1,18 +1,26 @@
 import pandas as pd
 
 # Load the CSV file
-df = pd.read_csv('C:\\Users\\araso\\Documents\\React\\damiina\\1st_data\\first_data.csv')
+df = pd.read_csv('C:\\Users\\araso\\Documents\\React\\damiina\\registrations 2nd.csv')
 
 # Column containing the course selections
-course_column = 'Select a course you want'
+course_column = 'course'
 
 # List of target courses to analyze
 target_courses = [
-    'Digital Marketing',
+    'Afaan Oromoo',
+    'Afaan Ingiliffaa',
+    'Afaan Arabaa',
+    'Afaan Amhara',
+    'Basic Computer Skill and Microsoft 365 Products',
     'Website Development',
+    'Mobile App Development',
     'Cryptocurrency',
-    'Forex',
-    'Mobile App Development'
+    'Forex Trading',
+    'Digital Marketing(Graphic Design)',
+    'Digital Marketing(Video Editing)',
+    'Digital Marketing(Social Media Marketing)',
+    'Digital Marketing(Amazon Affiliate and Google Ads)'
 ]
 
 # Count occurrences of each course

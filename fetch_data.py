@@ -12,7 +12,7 @@ if response.status_code == 200:
     data = response.json()
 
     # Specify CSV file name
-    csv_file = "registrations.csv"
+    csv_file = "registrations 2nd.csv"
 
     # Open the CSV file for writing
     with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
