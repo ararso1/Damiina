@@ -11,56 +11,30 @@ const ScheduleCallModal = ({ show, handleClose }) => {
     phone: '',
     country: '',
     program: '',
-    transactionId: '', // Will be auto-filled if payment is via Chapa
+    transactionId: '',
   });
   const [message, setMessage] = useState({ type: '', text: '' }); // State for success or error message
-  const [paymentInitiated, setPaymentInitiated] = useState(false); // State to track if payment is initiated
-  const [paymentSuccess, setPaymentSuccess] = useState(false); // State to track if payment is successful
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Function to initiate Chapa payment
-  const initiatePayment = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/initiate-payment', {
-        email: formData.email,
-        fullName: formData.fullName,
-        phone: formData.phone,
-      });
-
-      if (response.data.checkoutUrl) {
-        // Redirect to Chapa payment page
-        window.location.href = response.data.checkoutUrl;
-        setPaymentInitiated(true);
-      } else {
-        setMessage({ type: 'error', text: 'Failed to initiate payment.' });
-      }
-    } catch (error) {
-      console.error('Error initiating payment', error);
-      setMessage({ type: 'error', text: 'There was an error initiating the payment.' });
-    }
-  };
-
-  // Function to handle form submission
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.fullName || !formData.email || !formData.phone || !formData.country || !formData.program) {
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.country || !formData.program || !formData.transactionId) {
       setMessage({ type: 'error', text: 'Please fill in all fields.' });
       return;
     }
 
-    try {
-      // Save the form data along with the transaction ID (if payment is via Chapa)
-      const payload = {
-        ...formData,
-        paymentMethod: paymentSuccess ? 'Chapa' : 'Bank Transfer',
-        transactionId: paymentSuccess ? `chapa-${Date.now()}` : formData.transactionId, // Auto-generate transaction ID for Chapa payments
-      };
+    if (formData.transactionId.length < 10 || formData.transactionId.length > 16) {
+      setMessage({ type: 'error', text: 'Invalid transaction Id, please provide correct trasaction id' });
+      return;
+    }
 
-      await axios.post('http://localhost:5000/api/schedule', payload);
+    try {
+      console.log(formData, 'kkkksssssss')
+      await axios.post('https://damiina.onrender.com/api/schedule', formData);
       setMessage({ type: 'success', text: 'Information submitted successfully!' });
       setStep(3); // Proceed to Calendly after successful submission
     } catch (error) {
@@ -69,27 +43,35 @@ const ScheduleCallModal = ({ show, handleClose }) => {
     }
   };
 
-  // Function to render content based on the current step
   const renderContent = () => {
     switch (step) {
       case 1:
         return (
           <div>
-            <h5>Make Payment</h5>
+            <h5>Prerequisites for Scheduling</h5>
             <p>
-              To schedule a meeting with Ibsa Damiina, you are required to pay 500 birr using Chapa.
+            <strong>1. Make the Payment:</strong> To schedule a meeting with Ibsa Damiina, you are required to pay 500 birr. Save your transaction ID after making the payment.
             </p>
-            <Button variant="primary" onClick={initiatePayment}>
-              Pay with Chapa
+            <h6>Payment Methods</h6>
+            <ul>
+              <li>
+                <strong>Commercial Bank of Ethiopia:</strong> Ebsa Mohammed Abdella - 1000160417696
+              </li>
+              <li>
+                <strong>Awash Bank:</strong> Ebsa Mohammed Abdella - 01425907829400
+              </li>
+              <li>
+                <strong>Abyssinia Bank:</strong> Ebsa Mohammed Abdella - 80318747
+              </li>
+              <li>
+                <strong>COOP Bank of Oromia:</strong> Ebsa Mohammed Abdella - 1023500138638
+              </li>
+            </ul>
+            <p><strong>2. Fill Out the Form: </strong>Enter your basic information, including the transaction ID, and submit the form.</p>
+            <p><strong>3. Select Appointment: </strong>Choose your preferred date and time for the meeting from the available options.</p>
+            <Button variant="primary" onClick={() => setStep(2)}>
+              Proceed to Form
             </Button>
-            {message.text && (
-              <div
-                className={`text-${message.type === 'success' ? 'success' : 'danger'} mt-3`}
-                style={{ fontWeight: 'bold', textAlign: 'center' }}
-              >
-                {message.text}
-              </div>
-            )}
           </div>
         );
       case 2:
@@ -170,18 +152,28 @@ const ScheduleCallModal = ({ show, handleClose }) => {
                 <option value="community">Community</option>
               </Form.Control>
             </Form.Group>
-            {!paymentSuccess && (
-              <Form.Group className="mb-3">
-                <Form.Label>Transaction ID</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="transactionId"
-                  value={formData.transactionId}
-                  onChange={handleInputChange}
-                  required
-                />
-              </Form.Group>
-            )}
+            <Form.Group className="mb-3">
+            <Form.Label>Transaction ID</Form.Label>
+            <Form.Control
+              type="text"
+              name="transactionId"
+              value={formData.transactionId}
+              onChange={(e) => {
+                const { value } = e.target;
+                // Update the formData and clear errors if within range
+                setFormData({ ...formData, transactionId: value });
+                if (value.length >= 10 && value.length <= 16) {
+                  setMessage({ type: '', text: '' }); // Clear error message
+                }
+              }}
+              isInvalid={!!message.text && message.type === 'error'}
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              {message.text}
+            </Form.Control.Feedback>
+          </Form.Group>
+
             <Button variant="primary" type="submit">
               Submit
             </Button>
@@ -190,11 +182,13 @@ const ScheduleCallModal = ({ show, handleClose }) => {
       case 3:
         return (
           <>
-            <div style={{ marginTop: '20px' }}>
-              <h5 className="text-center mt-4">Choose an Appointment Date and Time</h5>
-              <InlineWidget url="https://cal.com/ibsa-damiina/30min" />
-            </div>
-          </>
+          <div style={{ marginTop: '20px' }}>
+            <h5 className="text-center mt-4">Choose an Appointment Date and Time</h5>
+            <InlineWidget url="https://cal.com/ibsa-damiina/30min" />
+          </div>
+         {/*  <div class="calendly-inline-widget" data-url="https://calendly.com/ianuur7/30min" style={{minWidth:"320px",height:"700px"}}></div>
+          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script> */}
+        </>
         );
       default:
         return null;

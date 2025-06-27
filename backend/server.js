@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { Pool } = require('pg');
 const nodemailer = require('nodemailer');
 require('dotenv').config(); // Add this line to load .env variables
-
+const axios = require('axios'); // Use axios instead of request
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -406,29 +406,67 @@ const createScheduleTable = async () => {
     console.error('Error creating schedule table:', error);
   }
 };
-
 // Call the function to create the table
 createScheduleTable();
 
-// Route to handle scheduling submissions
-app.post('/api/schedule', async (req, res) => {
-  const { fullName, email, phone, country, program, transactionId } = req.body;
+// Endpoint to initiate Chapa payment
+app.post('/api/initiate-payment', async (req, res) => {
+  const { email, fullName, phone } = req.body;
+
+  console.log('Received request to initiate payment:', { email, fullName, phone });
 
   try {
-    // Check for existing email or phone
-    // const existingEntry = await pool.query(
-    //   'SELECT * FROM schedule WHERE email = $1 OR phone = $2',
-    //   [email, phone]
-    // );
-    // if (existingEntry.rows.length > 0) {
-    //   return res.status(400).json({ message: 'Email or phone number is already registered.' });
-    // }
-    console.log(fullName,'lllll')
+    const response = await axios.post(
+      'https://api.chapa.co/v1/transaction/initialize',
+      {
+        amount: '500', // Amount in birr
+        currency: 'ETB',
+        email: email,
+        first_name: fullName.split(' ')[0],
+        last_name: fullName.split(' ')[1] || '',
+        phone_number: phone,
+        tx_ref: `tx-${Date.now()}`, // Unique transaction reference
+        callback_url: 'http://localhost:3000/', // Callback URL after payment
+        return_url: 'http://localhost:3000/', // Return URL after payment
+        customization: {
+          title: 'Meeting payment',
+          description: 'Scheduling a call with Ibsa Damiina',
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer CHASECK-P8r5jneU6DzlFOwh5alhGl9RHo673Wbb`, // Your Chapa secret key
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    console.log('Chapa API response:', response.data);
+
+    if (response.data.status === 'success') {
+      res.json({ checkoutUrl: response.data.data.checkout_url });
+    } else {
+      console.error('Chapa API returned an error:', response.data);
+      res.status(400).json({ error: 'Failed to initiate payment.' });
+    }
+  } catch (error) {
+    console.error('Error initiating payment:', error.response ? error.response.data : error.message);
+    res.status(500).json({ error: 'Failed to initiate payment.' });
+  }
+});
+
+// Endpoint to handle scheduling submissions
+app.post('/api/schedule', async (req, res) => {
+  const { fullName, email, phone, country, program, transactionId, paymentMethod } = req.body;
+
+  console.log('Received request to save schedule:', { fullName, email, phone, country, program, transactionId, paymentMethod });
+
+  try {
     // Insert new schedule entry
     const result = await pool.query(
-      `INSERT INTO schedule (full_name, email, phone, country, program, transaction_id)
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [fullName, email, phone, country, program, transactionId]
+      `INSERT INTO schedule (full_name, email, phone, country, program, transaction_id, payment_method)
+       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+      [fullName, email, phone, country, program, transactionId, paymentMethod]
     );
 
     res.status(200).json({ message: 'Schedule entry saved successfully!', data: result.rows[0] });
