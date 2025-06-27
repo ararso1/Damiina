@@ -305,6 +305,7 @@ const InstructorRegistration = () => {
             isInvalid={!!errors.coursesToTeach}
           >
             <option value="">Choose...</option>
+            <option value="Python Programming Language">Python Programmin Language</option>
             <option value="Afaan Oromoo">Afaan Oromoo</option>
             <option value="Afaan Ingiliffaa">Afaan Ingiliffaa</option>
             <option value="Afaan Arabaa">Afaan Arabaa</option>
